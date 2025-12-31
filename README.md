@@ -3,10 +3,10 @@
 
 ## PROJECT DESCRIPTION
 
-List, create, update, delete and search users.
+Aplicacion para leer el horoscopo.
 
 ### Links
-📌 Live site URL: [here](https://github.com/Tonyva002/Users)
+📌 Live site URL: [here](https://github.com/Tonyva002/horoscope)
 
 ### Built with
 
