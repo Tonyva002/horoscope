@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias {libs.plugins.ksp}
+    alias {libs.plugins.hilt}
+    alias(libs.plugins.safeargs)
 }
 
 android {
@@ -20,12 +23,21 @@ android {
     }
 
     buildTypes {
-        release {
+       getByName("release")  {
             isMinifyEnabled = false
+           isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+           resValue("string", "pangea", "HoroscopeApp")
+           buildConfigField("String", "BASE_URL", "\"https://newastro.vercel.app/\"")
+        }
+        getByName("debug"){
+            isDebuggable = true
+            resValue("string", "pangea", "[DEBUG] HoroscopeApp" )
+            buildConfigField("String", "BASE_URL", "\"https://newastro-debug.vercel.app/\"")
+
         }
     }
     compileOptions {
@@ -38,6 +50,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
 
@@ -51,8 +64,19 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     //Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx)
+
+    // Retrifit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.gson)
+    implementation(libs.logging.interceptor)
+
+
+    //Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation)
+    ksp(libs.hilt.compiler)
 
 
     testImplementation(libs.junit)
